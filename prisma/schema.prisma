@@ -9,3 +9,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Movie {
+  id Int @default(autoincrement()) @id
+  title String
+  year Int
+  genre String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// npx prisma migrate dev --name init 
+// dev와 함께 실행했기 때문에 prisma-client가 자동으로 생성됨
