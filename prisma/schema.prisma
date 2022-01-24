@@ -1,15 +1,19 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// npx prisma migrate 👉dev --name init 명령어를 치면 클라이언트를 생성해 줌
+// node_modules/@prisma/client에 생성됨
 generator client {
   provider = "prisma-client-js"
 }
 
+// provider: 데이터베이스에 어떻게 연결되는 것인가를 명시
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// model === RDBMS에서 TABLE의 개념
 model Movie {
   id Int @default(autoincrement()) @id
   title String
