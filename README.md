@@ -40,3 +40,10 @@ module.exports = mergeTypeDefs(typesArray);
 ```
 
 -   `**/*` 이러한 것들을 pattern language라 한다.
+
+## 4.4. Login
+
+-   Json web token의 표준을 구현한 [라이브러리](https://www.npmjs.com/package/jsonwebtoken)
+    ```
+    npm install jsonwebtoken
+    ```
