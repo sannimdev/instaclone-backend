@@ -2,6 +2,16 @@
 
 Instaclone Backend.
 
+## User
+
+-   [ ] Create Account
+-   [ ] See Profile
+-   [ ] Login
+-   [ ] Edit Profile
+-   [ ] Follow User
+-   [ ] Unfollow user
+-   [ ] Change Avatar (Image Upload)
+
 ## ETC
 
 ### 3.8. Prisma Studio 설치하기
