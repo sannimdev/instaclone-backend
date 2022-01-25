@@ -5,7 +5,7 @@ export default gql`
         id: String!
         firstName: String!
         lastName: String
-        userName: String!
+        username: String!
         email: String!
         # password 항목은 필요하지 않음
         createdAt: String!
@@ -15,7 +15,7 @@ export default gql`
         createAccount(
             firstName: String!
             lastName: String
-            userName: String!
+            username: String!
             email: String!
             password: String!
         ): User
