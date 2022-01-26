@@ -28,11 +28,14 @@ export const protectResolver = (ourResolver) => (root, args, context, info) => {
     return ourResolver(root, args, context, info);
 };
 
-// export const protectResolver = function (ourResolver) {
+// function protectResolver(ourResolver) {
 //     return function (root, args, context, info) {
-//         return {
-//             ok: false,
-//             error: 'Please log in to perform this action.',
-//         };
+//         if (!context.loggedInUser) {
+//             return {
+//                 ok: false,
+//                 error: 'Please log in to perform this action.',
+//             };
+//         }
+//         return ourResolver(root, args, context, info);
 //     };
-// };
+// }
