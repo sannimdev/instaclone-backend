@@ -9,9 +9,10 @@ export default {
         editProfile: protectResolver(
             async (
                 _,
-                { firstName, lastName, username, email, password: newPassword, bio },
+                { firstName, lastName, username, email, password: newPassword, bio, avatar },
                 { loggedInUser }
             ) => {
+                console.log(avatar, ';;;;;;;;;;;;');
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -26,6 +27,7 @@ export default {
                         lastName,
                         username,
                         email,
+                        bio,
                         ...(uglyPassword && { password: uglyPassword }),
                     },
                 });
