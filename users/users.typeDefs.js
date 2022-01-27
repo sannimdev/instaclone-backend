@@ -10,6 +10,8 @@ export default gql`
         # password 항목은 필요하지 않음
         createdAt: String!
         updatedAt: String!
+        bio: String
+        avatar: String
     }
     type Query {
         seeProfile(username: String!): User
