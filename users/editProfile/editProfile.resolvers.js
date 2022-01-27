@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt';
+import GraphQLUpload from 'graphql-upload';
 import client from '../../client';
 import { protectResolver } from '../users.utils';
 
 export default {
+    Upload: GraphQLUpload,
     Mutation: {
         editProfile: protectResolver(
             async (
