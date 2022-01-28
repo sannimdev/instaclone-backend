@@ -12,7 +12,12 @@ export default {
                 { firstName, lastName, username, email, password: newPassword, bio, avatar },
                 { loggedInUser }
             ) => {
-                console.log(avatar, ';;;;;;;;;;;;');
+                const {
+                    file: { filename, createReadStream },
+                } = avatar;
+                const stream = createReadStream();
+                console.log(stream);
+                console.log(filename, createReadStream);
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
