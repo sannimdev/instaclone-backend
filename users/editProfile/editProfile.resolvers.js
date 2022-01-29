@@ -1,3 +1,4 @@
+import { createWriteStream } from 'fs';
 import bcrypt from 'bcrypt';
 import GraphQLUpload from 'graphql-upload';
 import client from '../../client';
@@ -15,9 +16,10 @@ export default {
                 const {
                     file: { filename, createReadStream },
                 } = avatar;
-                const stream = createReadStream();
-                console.log(stream);
-                console.log(filename, createReadStream);
+                const readStream = createReadStream();
+                const writeStream = createWriteStream(process.cwd() + '/uploads/' + filename);
+                readStream.pipe(writeStream);
+
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
