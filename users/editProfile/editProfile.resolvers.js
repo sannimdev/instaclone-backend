@@ -1,4 +1,4 @@
-import { createWriteStream } from 'fs';
+import { createWriteStream, existsSync, mkdirSync } from 'fs';
 import bcrypt from 'bcrypt';
 import GraphQLUpload from 'graphql-upload';
 import client from '../../client';
@@ -13,13 +13,19 @@ export default {
                 { firstName, lastName, username, email, password: newPassword, bio, avatar },
                 { loggedInUser }
             ) => {
-                const {
-                    file: { filename, createReadStream },
-                } = avatar;
-                const readStream = createReadStream();
-                const writeStream = createWriteStream(process.cwd() + '/uploads/' + filename);
-                readStream.pipe(writeStream);
-
+                let avatarUrl = null;
+                if (avatar) {
+                    const {
+                        file: { filename, createReadStream },
+                    } = avatar;
+                    const savedPath = process.cwd() + '/uploads/' + loggedInUser.id;
+                    const newFilename = `${Date.now()}${filename}`;
+                    const readStream = createReadStream();
+                    const writeStream = createWriteStream(savedPath + '/' + newFilename);
+                    if (!existsSync(savedPath)) mkdirSync(savedPath);
+                    readStream.pipe(writeStream);
+                    avatarUrl = `http://localhost:4000/static/${newFilename}`;
+                }
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -36,6 +42,7 @@ export default {
                         email,
                         bio,
                         ...(uglyPassword && { password: uglyPassword }),
+                        ...(avatarUrl && { avatar: avatarUrl }),
                     },
                 });
                 if (updatedUser.id) {
