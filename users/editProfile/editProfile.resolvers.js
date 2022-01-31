@@ -2,12 +2,12 @@ import { createWriteStream, existsSync, mkdirSync } from 'fs';
 import bcrypt from 'bcrypt';
 import GraphQLUpload from 'graphql-upload';
 import client from '../../client';
-import { protectResolver } from '../users.utils';
+import { protectedResolver } from '../users.utils';
 
 export default {
     Upload: GraphQLUpload,
     Mutation: {
-        editProfile: protectResolver(
+        editProfile: protectedResolver(
             async (
                 _,
                 { firstName, lastName, username, email, password: newPassword, bio, avatar },
