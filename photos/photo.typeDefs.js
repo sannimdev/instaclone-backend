@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 export default gql`
     type Photo {
         id: String!
-        user: user!
+        user: User!
         file: String!
         caption: String
         hashtag: [Hashtag]
