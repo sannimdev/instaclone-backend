@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "dev": "nodemon --exec ./node_modules/.bin/babel-node server.js --delay 1s",
+        "dev": "nodemon --exec ./node_modules/.bin/babel-node src/server.js --delay 1s",
         "migrate": "npx prisma migrate dev",
         "migrateInit": "npx prisma migrate dev --name init",
-        "studio": "npx prisma studio"
+        "studio": "npx prisma studio",
+        "build": "babel src --out-dir build",
+        "start": "node build/server"
     },
     "repository": {
         "type": "git",
@@ -20,6 +22,8 @@
     },
     "homepage": "https://github.com/sannimdev/instaclone-backend#readme",
     "dependencies": {
+        "@babel/cli": "^7.16.8",
+        "@babel/runtime": "^7.16.7",
         "@graphql-tools/load-files": "^6.5.3",
         "@graphql-tools/merge": "^8.2.1",
         "@graphql-tools/schema": "^8.3.1",
@@ -37,6 +41,7 @@
     "devDependencies": {
         "@babel/core": "^7.16.12",
         "@babel/node": "^7.16.8",
+        "@babel/plugin-transform-runtime": "^7.16.10",
         "@babel/preset-env": "^7.16.11",
         "nodemon": "^2.0.15",
         "prisma": "^3.8.1"

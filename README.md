@@ -17,20 +17,20 @@ Instaclone Backend.
 
 ## Photos
 
-- [x] Upload Photo (Parse #)
-- [x] See Photo
-- [x] See Hashtags
-- [x] Search Photos
-- [x] Edit Photo
-- [ ] Like / Unlike Photo
-- [ ] See Photo Likes
-- [ ] See Feed
+-   [x] Upload Photo (Parse #)
+-   [x] See Photo
+-   [x] See Hashtags
+-   [x] Search Photos
+-   [x] Edit Photo
+-   [ ] Like / Unlike Photo
+-   [ ] See Photo Likes
+-   [ ] See Feed
 
-## Comments 
+## Comments
 
- - [ ] Comments on Photo
- - [ ] Edit Comment
- - [ ] Delete Comment
+-   [ ] Comments on Photo
+-   [ ] Edit Comment
+-   [ ] Delete Comment
 
 ## ETC
 
@@ -129,3 +129,13 @@ Upload: GraphQLUpload,
 
 🚀 http://localhost:4000/graphql
 https://www.apollographql.com/docs/apollo-server/data/file-uploads/
+
+## 19.0 Building the Server
+
+### Regenerator
+
+-   기본적으로 async functions를 작동할 수 있게 함
+-   [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime)
+    ```
+    npm install --save-dev @babel/plugin-transform-runtime
+    ```
