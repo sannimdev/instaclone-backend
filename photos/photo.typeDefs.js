@@ -9,6 +9,7 @@ export default gql`
         hashtags: [Hashtag]
         createdAt: String!
         updatedAt: String!
+        likes: Int!
     }
 
     type Hashtag {
@@ -20,6 +21,7 @@ export default gql`
         updatedAt: String!
     }
 
+    # Like는 user가 직접 확인하는 부분이 아니므로 꼭 필요한 부분은 아니다
     type Like {
         id: Int!
         photo: Photo!
