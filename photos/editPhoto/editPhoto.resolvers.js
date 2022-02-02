@@ -1,5 +1,6 @@
 import client from '../../client';
 import { protectedResolver } from '../../users/users.utils';
+import { processHashtags } from '../photo.utils';
 
 export default {
     Mutation: {
@@ -11,14 +12,27 @@ export default {
             //         error: "Photo not found"
             //     }
             // }
-            const ok = await client.photo.findFirst({ where: { id, userId: loggedInUser.id } });
-            if (!ok) {
+            const oldPhoto = await client.photo.findFirst({
+                where: { id, userId: loggedInUser.id },
+                include: { hashtags: { select: { hashtag: true } } },
+            });
+            if (!oldPhoto) {
                 return {
                     ok: false,
                     error: 'Photo not found',
                 };
             }
-            const photo = await client.photo.update({ where: { id }, data: { caption } });
+            console.log(oldPhoto);
+            const photo = await client.photo.update({
+                where: { id },
+                data: {
+                    caption,
+                    hashtags: {
+                        disconnect: oldPhoto.hashtags,
+                        connectOrCreate: processHashtags(caption),
+                    },
+                },
+            });
             console.log(photo);
             return {
                 ok: true,
