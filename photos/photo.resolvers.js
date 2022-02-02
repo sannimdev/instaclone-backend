@@ -12,4 +12,18 @@ export default {
                 },
             }),
     },
+    Hashtag: {
+        photos: async ({ id }, { page }, { loggedInUser }) => {
+            console.log(args);
+            await client.hashtag.findUnique({ where: { id } }).photos();
+        },
+        totalPhotos: ({ id }) =>
+            client.photo.count({
+                where: {
+                    hashtags: {
+                        some: { id },
+                    },
+                },
+            }),
+    },
 };
