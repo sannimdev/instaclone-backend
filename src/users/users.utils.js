@@ -20,10 +20,16 @@ export const getUser = async (token) => {
 
 export const protectedResolver = (ourResolver) => (root, args, context, info) => {
     if (!context.loggedInUser) {
-        return {
-            ok: false,
-            error: 'Please log in to perform this action.',
-        };
+        const query = info.operation.operation === 'query';
+        if (query) {
+            // return type이 Mutation과 다르기 때문
+            return null;
+        } else {
+            return {
+                ok: false,
+                error: 'Please log in to perform this action.',
+            };
+        }
     }
     return ourResolver(root, args, context, info);
 };
