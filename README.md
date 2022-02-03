@@ -140,3 +140,7 @@ https://www.apollographql.com/docs/apollo-server/data/file-uploads/
     ```
     npm install --save-dev @babel/plugin-transform-runtime
     ```
+
+## 19.3 Release phase of Prisma
+
+-   [Running prisma migrate deploy during the release phase](https://www.prisma.io/docs/guides/deployment/deploy-database-changes-with-prisma-migrate)
