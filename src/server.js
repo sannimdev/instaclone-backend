@@ -13,8 +13,8 @@ const startServer = async () => {
         typeDefs,
         resolvers,
         // production 모드에서도 플레이그라운드 사용
-        introspection: true,
-        playground: true,
+        // introspection: true,
+        // playground: true,
         context: async ({ req }) => {
             return {
                 loggedInUser: await getUser(req.headers.token),
