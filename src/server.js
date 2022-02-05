@@ -24,6 +24,7 @@ const startServer = async () => {
 
     await server.start();
     const app = express();
+
     app.use(logger('tiny')); // logger 사용 선언 다음에 적어줘야 로깅이 된다.
     app.use('/static', express.static('uploads'));
     app.use(graphqlUploadExpress());
