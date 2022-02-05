@@ -18,7 +18,7 @@ export default {
                     },
                 });
             } else if (roomId) {
-                const room = await client.room.findUnique({ where: { id: roomId }, select: { id: true } });
+                room = await client.room.findUnique({ where: { id: roomId }, select: { id: true } });
                 if (!room) {
                     return { ok: false, error: 'Room not found.' };
                 }

@@ -9,8 +9,8 @@ export default {
                     id,
                     userId: { not: loggedInUser.id },
                     room: { users: { some: { id: loggedInUser.id } } },
-                    select: { id: true },
                 },
+                select: { id: true },
             });
             if (!message) {
                 return { ok: false, error: 'Message not found' };
