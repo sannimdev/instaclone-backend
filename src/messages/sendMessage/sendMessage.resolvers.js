@@ -1,4 +1,6 @@
 import client from '../../client';
+import { NEW_MESSAGE } from '../../constants';
+import pubsub from '../../pubsub';
 import { protectedResolver } from '../../users/users.utils';
 
 export default {
@@ -23,13 +25,14 @@ export default {
                     return { ok: false, error: 'Room not found.' };
                 }
             }
-            await client.message.create({
+            const message = await client.message.create({
                 data: {
                     payload,
                     room: { connect: { id: room.id } },
                     user: { connect: { id: loggedInUser.id } },
                 },
             });
+            pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
             return { ok: true };
         }),
     },

@@ -55,7 +55,7 @@ const startServer = async () => {
     });
     await server.start();
     server.applyMiddleware({ app });
-    await new Promise((func) => httpServer.listen({ port: PORT }, func));
+    await new Promise((func) => httpServer.listen(PORT, func));
     console.log(`🥤 Server is running on http://localhost:4000${server.graphqlPath}`);
 };
 
