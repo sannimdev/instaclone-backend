@@ -7,13 +7,22 @@ export default {
     Subscription: {
         roomUpdates: {
             subscribe: async (root, args, context, info) => {
-                const room = await client.room.findUnique({ where: { id: args.id }, select: { id: true } });
-                console.log(room, '존재하는가');
+                const room = await client.room.findFirst({
+                    where: { id: args.id, users: { some: { id: context.loggedInUser.id } } },
+                    select: { id: true },
+                });
+                console.log(room, '있나');
                 if (!room) throw new Error('You shall not see this.');
                 return withFilter(
                     () => pubsub.asyncIterator(NEW_MESSAGE),
-                    ({ roomUpdates }, { id }) => {
-                        return roomUpdates.roomId === id;
+                    async ({ roomUpdates }, { id }, { loggedInUser }) => {
+                        if (roomUpdates.roomId === id) {
+                            const room = await client.room.findFirst({
+                                where: { id, users: { some: { id: loggedInUser.id } } },
+                                select: { id: true },
+                            });
+                            return !!room;
+                        }
                     }
                 )(root, args, context, info);
             },

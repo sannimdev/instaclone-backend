@@ -24,6 +24,13 @@ const startServer = async () => {
             schema,
             execute,
             subscribe,
+            onConnect: async ({ token }, _, context) => {
+                if (!token) {
+                    throw new Error("You can't listen");
+                }
+                const loggedInUser = await getUser(token);
+                return { loggedInUser };
+            },
         },
         {
             server: httpServer,
@@ -47,10 +54,18 @@ const startServer = async () => {
                 },
             },
         ],
-        context: async ({ req }) => {
-            return {
-                loggedInUser: await getUser(req.headers.token),
-            };
+        // 로그가 안찍히는데 ㅠㅠ
+        context: async (ctx) => {
+            if (ctx.req) {
+                return {
+                    loggedInUser: await getUser(ctx.req.headers.token),
+                };
+            } else {
+                const {
+                    connect: { context },
+                } = ctx;
+                return { loggedInUser: context.loggedInUser };
+            }
         },
     });
     await server.start();
