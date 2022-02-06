@@ -40,7 +40,7 @@ Instaclone Backend.
 -   [x] See Room
 -   [x] Computed Fields
 -   [x] Seee Message
--   [ ] Realtime Messages
+-   [x] Realtime Messages
 
 ## ETC
 
