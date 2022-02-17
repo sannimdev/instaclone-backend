@@ -10,10 +10,18 @@ import { createServer } from 'http';
 import { execute, subscribe } from 'graphql';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import cors from 'cors';
 
 const PORT = process.env.PORT;
 const startServer = async () => {
+    const corsOptions = {
+        // https://cheatcode.co/tutorials/how-to-set-up-a-graphql-server-with-apollo-server-and-express
+        origin: (origin, callback) => callback(null, true),
+        credentials: true,
+    };
+
     const app = express();
+    app.use(cors(corsOptions));
     app.use(logger('tiny')); // logger 사용 선언 다음에 적어줘야 로깅이 된다.
     app.use('/static', express.static('uploads'));
     app.use(graphqlUploadExpress());
@@ -42,7 +50,10 @@ const startServer = async () => {
         // production 모드에서도 플레이그라운드 사용
         // introspection: true,
         // playground: true,
-        schema,
+        cors,
+        typeDefs,
+        resolvers,
+        // schema,
         plugins: [
             {
                 async serverWillStart() {
@@ -69,8 +80,8 @@ const startServer = async () => {
         },
     });
     await server.start();
-    server.applyMiddleware({ app });
-    await new Promise((func) => httpServer.listen(PORT, func));
+    server.applyMiddleware({ app, cors: corsOptions });
+    await new Promise((func) => app.listen({ port: PORT }, func));
     console.log(`🥤 Server is running on http://localhost:4000${server.graphqlPath}`);
 };
 
