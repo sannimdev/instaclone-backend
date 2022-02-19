@@ -7,7 +7,8 @@ export default gql`
         file: String!
         caption: String
         hashtags: [Hashtag]
-        comments: Int!
+        comments: [Comment]
+        commentNumber: Int!
         createdAt: String!
         updatedAt: String!
         likes: Int!

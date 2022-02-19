@@ -12,7 +12,8 @@ export default {
                 },
             }),
         likes: ({ id }) => client.like.count({ where: { photoId: id } }),
-        comments: ({ id }) => client.comment.count({ where: { photoId: id } }),
+        comments: ({ id }) => client.comment.findMany({ where: { photoId: id }, include: { user: true } }),
+        commentNumber: ({ id }) => client.comment.count({ where: { photoId: id } }),
         isMine: ({ userId }, _, { loggedInUser }) => {
             if (!loggedInUser) return false; // 로그인하지 않은 경우도 항상 고려해야 한다.
             return userId === loggedInUser.id;
