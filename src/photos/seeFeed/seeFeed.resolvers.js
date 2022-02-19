@@ -3,8 +3,9 @@ import { protectedResolver } from '../../users/users.utils';
 
 export default {
     Query: {
-        seeFeed: protectedResolver((_, __, { loggedInUser }) =>
-            client.photo.findMany({
+        seeFeed: protectedResolver(async (_, __, { loggedInUser }) => {
+            console.log(loggedInUser);
+            const result = await client.photo.findMany({
                 where: {
                     OR: [
                         {
@@ -18,7 +19,9 @@ export default {
                 orderBy: {
                     createdAt: 'desc',
                 },
-            })
-        ),
+            });
+            console.log(result);
+            return result;
+        }),
     },
 };
